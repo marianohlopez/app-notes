@@ -1,11 +1,9 @@
 import express, { Request, Response } from 'express';
 import { json, urlencoded } from 'body-parser';
 import mongoose from "mongoose";
-import {mongoURL} from './config/config'
+import {mongoURL, port} from './config/config'
 
 /* import passport from "passport"; */
-
-const port = 3000;
 
 const app = express();
 
@@ -14,10 +12,11 @@ app.use(json());
 app.use(urlencoded({ extended: true }));
 
 app.get('/', (req:Request, res:Response) => {
-    res.send("<h1>Desafio Nº 3</h>")
-})
+    res.send("<h1>FUnciona</h>")
+});
 
 mongoose.connect(mongoURL);
+console.log("Database connected!");
 
 const expressServer = app.listen(port, () => {
 
