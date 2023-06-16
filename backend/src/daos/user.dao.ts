@@ -1,9 +1,9 @@
-import { UserModel } from "../models/user.model";
+import { UserModel, User } from "../models/user.model";
 import MongoDao from "./mongo.dao";
 
-let instance: any
+let instance: UserMongoDao;
 
-export default class UserMongoDao extends MongoDao {
+export default class UserMongoDao extends MongoDao<User> {
   constructor() {
     super(UserModel);
   }

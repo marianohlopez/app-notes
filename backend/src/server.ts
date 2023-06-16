@@ -2,8 +2,7 @@ import express, { Request, Response } from 'express';
 import { json, urlencoded } from 'body-parser';
 import mongoose from "mongoose";
 import {mongoURL, port} from './config/config'
-
-/* import passport from "passport"; */
+import passport from "passport";
 
 const app = express();
 
@@ -19,7 +18,6 @@ mongoose.connect(mongoURL);
 console.log("Database connected!");
 
 const expressServer = app.listen(port, () => {
-
     console.log(`Server listening port ${port}`);
 })
 

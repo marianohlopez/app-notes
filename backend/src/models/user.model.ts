@@ -17,4 +17,6 @@ interface User extends Document {
   });
   
 
-export const UserModel = model<User>("user", userSchema);
+const UserModel = model<User>("user", userSchema);
+
+export { User, UserModel };

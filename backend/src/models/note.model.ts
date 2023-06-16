@@ -15,4 +15,6 @@ interface Note extends Document {
   });
   
 
-export const NoteModel = model<Note>("note", noteSchema);
+const NoteModel = model<Note>("note", noteSchema);
+
+export {Note, NoteModel};
