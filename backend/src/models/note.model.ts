@@ -1,20 +1,21 @@
 import { model, Schema, Document } from "mongoose";
 
-interface Note extends Document {
+interface UserNotes extends Document {
     username?: string;
-    title?: string;
-    description?: string;
-    date?: string;
-  }
-  
-  const noteSchema: Schema<Note> = new Schema<Note>({
-    username: { type: String },
-    title: { type: String },
-    description: { type: String },
-    date: { type: String }
-  });
-  
+    notes?: Note[];
+}
 
-const NoteModel = model<Note>("note", noteSchema);
+interface Note {
+  title: string;
+  description: string;
+  date: string;
+}
 
-export {Note, NoteModel};
+const noteSchema: Schema<UserNotes> = new Schema<UserNotes>({
+  username: { type: String },
+  notes: { type: [{ title: String, description: String, date: String }] }
+});
+
+const NoteModel = model<UserNotes>("note", noteSchema);
+
+export {UserNotes, NoteModel};

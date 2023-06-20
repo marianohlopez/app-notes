@@ -1,9 +1,9 @@
-import { NoteModel, Note } from "../models/note.model";
+import { NoteModel, UserNotes } from "../models/note.model";
 import MongoDao from "./mongo.dao";
 
 let instance: NoteMongoDao;
 
-export default class NoteMongoDao extends MongoDao<Note> {
+export default class NoteMongoDao extends MongoDao<UserNotes> {
   constructor() {
     super(NoteModel);
   }

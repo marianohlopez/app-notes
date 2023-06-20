@@ -8,13 +8,13 @@ interface User extends Document {
     lastname?: string;
   }
   
-  const userSchema: Schema<User> = new Schema<User>({
+const userSchema: Schema<User> = new Schema<User>({
     username: { type: String },
     email: { type: String },
     password: { type: String },
     firstname: { type: String },
     lastname: { type: String },
-  });
+});
   
 
 const UserModel = model<User>("user", userSchema);

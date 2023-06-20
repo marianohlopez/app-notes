@@ -6,12 +6,14 @@ const getLogin = (req: Request, res: Response) => {
     if (req.isAuthenticated()) {
         const user = req.user as User;
         return res.json({
-            usuario: user.username,
-            nombre: user.firstname,
-            apellido: user.lastname,
+            user: user.username,
+            name: user.firstname,
+            lastname: user.lastname,
             email: user.email,
         });
     }
 
     return res.status(401).json({ message: "Unauthorized" });
 };
+
+export default getLogin;

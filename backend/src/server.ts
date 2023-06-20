@@ -6,6 +6,9 @@ import session from "express-session";
 import passport from "passport";
 import UserMongoDao from './daos/user.dao';
 import { passportStrategies } from './lib/passport.lib';
+import router from './routes/index';
+
+
 const userMongo = UserMongoDao.getInstance();
 
 const app = express();
@@ -34,13 +37,10 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id:any, done) => {
     const data = await userMongo.getById(id);
-    done(null, data)
+    done(null, data);
 });
 
-
-/* app.get('/', (req:Request, res:Response) => {
-    res.send("<h1>FUnciona</h>")
-}); */
+app.use(router);
 
 mongoose.connect(mongoURL);
 console.log("Database connected!");
