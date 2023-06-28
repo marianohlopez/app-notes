@@ -3,17 +3,20 @@ import { User } from "../models/user.model";
 
 const getLogin = (req: Request, res: Response) => {
 
-    if (req.isAuthenticated()) {
-        const user = req.user as User;
-        return res.json({
-            user: user.username,
-            name: user.firstname,
-            lastname: user.lastname,
-            email: user.email,
-        });
+    try {
+        if (req.isAuthenticated()) {
+            const user = req.user as User;
+            return res.json({
+                user: user.username,
+                name: user.firstname,
+                lastname: user.lastname,
+                email: user.email,
+            });
+        }
+    } catch (err) {
+        console.error(`error logging user: ${err}`);
+        return res.status(401).json({ message: "Unauthorized" });
     }
-
-    return res.status(401).json({ message: "Unauthorized" });
 };
 
 export default getLogin;

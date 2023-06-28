@@ -18,4 +18,4 @@ const noteSchema: Schema<UserNotes> = new Schema<UserNotes>({
 
 const NoteModel = model<UserNotes>("note", noteSchema);
 
-export {UserNotes, NoteModel};
+export {UserNotes, NoteModel, Note};

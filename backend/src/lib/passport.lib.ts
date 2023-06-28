@@ -1,8 +1,10 @@
 import bcrypt from "bcrypt";
 import { Strategy as LocalStrategy } from "passport-local";
 import UserMongoDao from "../daos/user.dao";
+import NoteMongoDao from "../daos/note.dao";
 
-const userMongo = UserMongoDao.getInstance()
+const userMongo = UserMongoDao.getInstance();
+const NoteMongo = NoteMongoDao.getInstance();
 
 const hashPassword = (password:string) => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
@@ -44,6 +46,8 @@ const registerStrategy = new LocalStrategy(
                 email: req.body.email,
             };
             const createdUser = await userMongo.create(newUser);
+
+            NoteMongo.create({username, notes: []})
 
             req.user = createdUser;
 
