@@ -50,7 +50,7 @@ export default class MongoDao<T extends Document> {
 
   async getByFilter(filters: FilterQuery<T>): Promise<T | undefined> {
     try {
-      const document = await this.model.findOne(filters).lean();
+      const document = await this.model.findOne(filters);
       return document;
     } catch (err) {
       console.log("Error getting document by filters", err);

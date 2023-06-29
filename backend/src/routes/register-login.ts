@@ -1,19 +1,22 @@
 import { Router } from 'express';
 import passport from "passport";
-import getLogin from '../controllers/user.controller';
+import { userController } from '../controllers/user.controller';
 
 const router = Router();
 
 router.route('/login')
-    .get(getLogin)
+    .get(userController.getLogin)
     .post(
         passport.authenticate("login"),
-        getLogin
+        userController.getLogin
     );
 
 router.
     post("/register", 
     passport.authenticate("register"),
-    getLogin)
+    userController.getLogin);
+
+router.get("/logout", userController.logout);
+
 
 export const registerLoginRouter = router;

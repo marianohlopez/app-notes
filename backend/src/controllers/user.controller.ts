@@ -19,4 +19,17 @@ const getLogin = (req: Request, res: Response) => {
     }
 };
 
-export default getLogin;
+const logout = (req: any, res: Response) => {
+    try {
+      req.logout(); 
+      return res.status(200).json({ message: "Logged out successfully" });
+    } catch (err) {
+      console.error(`Error logging out: ${err}`);
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  };
+
+export const userController = {
+    getLogin,
+    logout,
+};

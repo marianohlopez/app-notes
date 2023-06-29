@@ -7,6 +7,7 @@ export default class NoteMongoDao extends MongoDao<UserNotes> {
   constructor() {
     super(NoteModel);
   }
+  
   static getInstance() {
     if (!instance) instance = new NoteMongoDao();
 

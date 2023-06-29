@@ -1,17 +1,17 @@
 import { Response, Request } from "express"
 import NoteMongoDao from "../daos/note.dao";
-import { Note }from "../models/note.model"
+import { UserNotes }from "../models/note.model"
 
 const noteMongo = NoteMongoDao.getInstance();
 
 const createNote = async (req:any, res:Response) => {
     try{
         const { user } = req;
-        const userNotes = await noteMongo.getByFilter(user.usermame);
+        const userNotes = await noteMongo.getByFilter({username: user.username});
         const {title, description, date} = req.body;
         if (userNotes) {
             userNotes.notes?.push({title, description, date});
-            await noteMongo.update({username:user.username}, userNotes);
+            await noteMongo.update({username:user.username}, { notes: userNotes.notes });
             return res.status(200).json({ message: "Note created successfully" });
         } 
     }
@@ -21,10 +21,12 @@ const createNote = async (req:any, res:Response) => {
     }
 };
 
-const getNotes = async (req: Request, res: Response) => {
+const getNotes = async (req: any, res: Response) => {
     try {
-        const response = await noteMongo.getAll();
-        return response;
+        const { user } = req;
+        const data = await noteMongo.getAll();
+        const response = data?.find( (el:UserNotes) => el.username === user?.username )
+        res.json(response?.notes);
     }
     catch(err){
         console.error(`Error getting notes: ${err}`);
@@ -36,10 +38,12 @@ const updateNote = async (req: any, res: Response) => {
     try {
         const { user } = req;
         const { title, description, date } = req.body;
-        const userNotes = await noteMongo.getByFilter(user.usermame);
-        const { noteTitle } = req.params;
-        const note = userNotes?.notes?.find((el:Note) => el.title === noteTitle);
-        
+        const { id } = req.params;
+        const userNotes = await noteMongo.getByFilter({username: user.username});
+        const newArrayNotes = userNotes?.notes?.filter((el:any) => el._id != id)      
+        newArrayNotes?.push({title, description, date})
+        await noteMongo.update({username:user.username}, { notes: newArrayNotes });
+        return res.status(200).json({ message: "Note updated successfully" });
     }
     catch(err){
         console.error(`Error updating notes: ${err}`);
@@ -47,9 +51,26 @@ const updateNote = async (req: any, res: Response) => {
     }
 };
 
+const deleteNote = async (req: any, res: Response) => {
+    try {
+        const { user } = req;
+        const { id } = req.params;
+        const userNotes = await noteMongo.getByFilter({username: user.username});
+        const newArray = userNotes?.notes?.filter((el:any) => el._id != id) 
+        await noteMongo.update({username:user.username}, { notes: newArray });
+        return res.status(200).json({ message: "Note deleted successfully" });
+    }
+    catch(err){
+        console.error(`Error deleting notes: ${err}`);
+        return res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+
 export const noteController = {
     createNote,
     getNotes,
     updateNote,
+    deleteNote,
 };
 

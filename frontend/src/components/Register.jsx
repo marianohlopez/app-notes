@@ -11,7 +11,7 @@ function RegistrationForm() {
     const userData = { username, email, password };
 
     try {
-      const response = await axios.post('URL_DE_TU_API', userData);
+      const response = await axios.post('URL', userData);
       console.log(response.data); 
     } catch (error) {
       console.error(error);
