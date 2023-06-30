@@ -7,11 +7,13 @@ import passport from "passport";
 import UserMongoDao from './daos/user.dao';
 import { passportStrategies } from './lib/passport.lib';
 import router from './routes/index';
-
+import cors from 'cors';
 
 const userMongo = UserMongoDao.getInstance();
 
 const app = express();
+
+app.use(cors());
 
 app.use(json());
 

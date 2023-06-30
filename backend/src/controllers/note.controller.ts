@@ -55,9 +55,7 @@ const deleteNote = async (req: any, res: Response) => {
     try {
         const { user } = req;
         const { id } = req.params;
-        const userNotes = await noteMongo.getByFilter({username: user.username});
-        const newArray = userNotes?.notes?.filter((el:any) => el._id != id) 
-        await noteMongo.update({username:user.username}, { notes: newArray });
+        await noteMongo.deleteNote(user.username, id)
         return res.status(200).json({ message: "Note deleted successfully" });
     }
     catch(err){
