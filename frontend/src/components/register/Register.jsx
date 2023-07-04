@@ -12,9 +12,8 @@ const RegistrationForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const userData = { username, firstname, lastname, email, password };
-    console.log(configParams.API_URL);
+
     try {
       const response = await axios.post(`${configParams.API_URL}register`, userData);
       if(response.status === 200){
@@ -23,7 +22,7 @@ const RegistrationForm = () => {
       console.log(response.data); 
     } catch (error) {
       console.error(error);
-      alert(`El usuario ya existe`)
+      alert("El usuario ya existe")
     }
   };
 
