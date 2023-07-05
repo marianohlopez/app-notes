@@ -13,7 +13,10 @@ const userMongo = UserMongoDao.getInstance();
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    origin: true,
+    credentials: true
+  }));
 
 app.use(json());
 
@@ -38,8 +41,8 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (id:any, done) => {
-    const data = await userMongo.getById(id);
-    done(null, data);
+    const user = await userMongo.getById(id);
+    done(null, user);
 });
 
 app.use(router);

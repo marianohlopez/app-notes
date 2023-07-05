@@ -13,10 +13,11 @@ const Login = () => {
     e.preventDefault();
     const userData = { username, password };
     try {
-      const response = await axios.post(`${configParams.API_URL}/login`, userData);
+      const response = await axios.post(`${configParams.API_URL}/login`, userData, {withCredentials: true});
       if(response.status === 200){
         alert("Login exitoso!")
         navigate('dashboard')
+        console.log(response.data);
       }
       console.log(response.data); 
     } catch (error) {
