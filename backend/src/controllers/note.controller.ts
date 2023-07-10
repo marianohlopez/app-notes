@@ -6,6 +6,8 @@ const noteMongo = NoteMongoDao.getInstance();
 
 const createNote = async (req:any, res:Response) => {
     try{
+        console.log(req);
+        
         const { user } = req;   
         const userNotes = await noteMongo.getByFilter({username: user.username});
         const {title, description, date} = req.body;

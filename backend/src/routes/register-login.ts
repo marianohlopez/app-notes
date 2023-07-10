@@ -5,7 +5,8 @@ import { userController } from '../controllers/user.controller';
 const router = Router();
 
 router.route('/login')
-    .get(userController.getLogin)
+    .get(
+        userController.getLogin)
     .post(
         passport.authenticate("login"),
         userController.getLogin

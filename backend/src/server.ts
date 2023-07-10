@@ -14,9 +14,10 @@ const userMongo = UserMongoDao.getInstance();
 const app = express();
 
 app.use(cors({
-    origin: true,
+    origin: "http://127.0.0.1:5173",
     credentials: true
   }));
+
 
 app.use(json());
 
@@ -27,6 +28,9 @@ app.use(
         secret: "secret-note",
         resave: false,
         saveUninitialized: false,
+        cookie: {
+            httpOnly:true,
+        },
     })
 );
 

@@ -49,7 +49,7 @@ const registerStrategy = new LocalStrategy(
 
             NoteMongo.create({username, notes: []})
 
-            req.user = createdUser;
+            /* req.user = createdUser; */
 
             return done(null, createdUser);
         } catch (err) {

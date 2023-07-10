@@ -19,8 +19,8 @@ const AddNote = () => {
       };
     
       try {
-        const response = await axios.post(`${configParams.API_URL}/create-note`, noteData, { withCredentials: true });
-        
+        const response = await axios.post(`${configParams.API_URL}/create-note`, noteData, 
+        {withCredentials: true});
         setNoteTitle('');
         setNoteDescription('');
         setModalIsOpen(false);

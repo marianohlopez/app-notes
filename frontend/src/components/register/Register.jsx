@@ -15,7 +15,7 @@ const RegistrationForm = () => {
     const userData = { username, firstname, lastname, email, password };
 
     try {
-      const response = await axios.post(`${configParams.API_URL}register`, userData);
+      const response = await axios.post(`${configParams.API_URL}/register`, userData, {withCredentials: true});
       if(response.status === 200){
         alert("Registro exitoso!")
       }
