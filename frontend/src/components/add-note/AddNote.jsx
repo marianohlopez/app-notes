@@ -4,7 +4,7 @@ import axios from 'axios';
 import moment from 'moment';
 import configParams from '../../config/config';
 
-const AddNote = () => {
+const AddNote = ({fetchNotes}) => {
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [noteTitle, setNoteTitle] = useState('');
@@ -19,14 +19,13 @@ const AddNote = () => {
       };
     
       try {
-        const response = await axios.post(`${configParams.API_URL}/create-note`, noteData, 
+        await axios.post(`${configParams.API_URL}/create-note`, noteData, 
         {withCredentials: true});
         setNoteTitle('');
         setNoteDescription('');
         setModalIsOpen(false);
-
-        console.log(response.data);
         alert('Note created successfully');
+        fetchNotes()
       } catch (error) {
         console.error(error);
       }
@@ -34,9 +33,12 @@ const AddNote = () => {
 
   return (
     <>
-      <div className="bg-gray-200 w-48 h-56 rounded-lg flex flex-col items-center justify-center">
-        <div className="text-3xl w-20 h-20 rounded-full border-2 border-dotted border-blue-500 flex items-center justify-center text-blue-500">
-            <button onClick={() => setModalIsOpen(true)}>+</button>
+      <div className="bg-gray-200 w-3/4 sm:w-full mx-auto h-56 rounded-lg 
+      flex flex-col items-center justify-center">
+        <div className="text-3xl w-20 h-20 rounded-full border-2 border-dotted border-blue-500 
+        flex items-center justify-center text-blue-500 cursor-pointer"
+        onClick={() => setModalIsOpen(true)}>
+            <button>+</button>
         </div>
         <p className="mt-2 text-center text-blue-500">Add new note</p>
       </div>

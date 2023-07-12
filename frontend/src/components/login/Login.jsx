@@ -2,11 +2,16 @@ import { useState } from "react"
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import configParams from '../../config/config.js';
+import { useContext } from "react";
+import { Context } from "../../context/context.jsx";
 
 const Login = () => {
 
+  const { setIsAuthenticated } = useContext(Context)
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
@@ -15,8 +20,9 @@ const Login = () => {
     try {
       const response = await axios.post(`${configParams.API_URL}/login`, userData, {withCredentials: true});
       if(response.status === 200){
-        alert("Login exitoso!")
-        navigate('dashboard')
+        alert("Login exitoso!");
+        setIsAuthenticated(true);
+        navigate('dashboard');
       }
     } catch (error) {
       console.error(error);
