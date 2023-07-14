@@ -44,7 +44,10 @@ const NoteContainer = () => {
         </div>
         ))}
       </div>
-      <UpdateModal note={selectedNote} isOpen={modalOpen} setModalOpen={setModalOpen} />
+      {selectedNote &&
+        <UpdateModal note={selectedNote} isOpen={modalOpen} setModalOpen={setModalOpen} />
+      }
+      
     </div>
   );
 };
