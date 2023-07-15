@@ -5,13 +5,32 @@ import configParams from '../config/config';
 export const Context = createContext();
 
 export const Provider = ({ children }) => {
+  
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [notes, setNotes] = useState([]);
+
+  const dateConverter = (date) => {
+    const parts = date.split(/[/, :]/);
+    return `${parts[2]}/${parts[1]}/${parts[0]} ${parts[3]}:${parts[4]}:${parts[5]}`;
+  }
+
+  const compareDate = (a, b) => {
+      const dateA = dateConverter(a.date);
+      const dateB = dateConverter(b.date);
+
+      if (dateA > dateB) {
+          return -1;
+      } else if (dateA < dateB) {
+          return 1; 
+      } else {
+          return 0; 
+      }
+  }
 
   const fetchNotes = async () => {
     try {
       const response = await axios.get(`${configParams.API_URL}/get-notes`, { withCredentials: true });
-      setNotes(response.data);
+      setNotes(response.data.sort(compareDate));
     } catch (error) {
       console.error(error);
     }

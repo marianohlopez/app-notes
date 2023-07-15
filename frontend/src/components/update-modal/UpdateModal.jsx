@@ -3,9 +3,12 @@ import { useState, useEffect, useContext } from 'react';
 import { Context } from '../../context/context';
 import axios from 'axios';
 import configParams from '../../config/config';
+import moment from 'moment';
+import './update-modal.css';
 
 const UpdateModal = ({ note, isOpen, setModalOpen }) => {
   const [editedNote, setEditedNote] = useState(note);
+  const [hasChanges, setHasChanges] = useState(false);
   const {fetchNotes} = useContext(Context);
 
   useEffect(() => {
@@ -18,7 +21,7 @@ const UpdateModal = ({ note, isOpen, setModalOpen }) => {
     const noteData = {
       title: updatedNote.title,
       description: updatedNote.description,
-      date: updatedNote.date
+      date: moment().format('DD/MM/YYYY, h:mm:ss a'),
     }
     try {
       const response = await axios.post(`${configParams.API_URL}/update-note/${updatedNote._id}`, 
@@ -37,30 +40,63 @@ const UpdateModal = ({ note, isOpen, setModalOpen }) => {
       ...editedNote,
       [e.target.name]: e.target.value,
     });
+    setHasChanges(true);
+  };
+
+  const resetForm = () => {
+    setHasChanges(false);
+    setModalOpen(false);
   };
 
   const handleNoteUpdate = () => {
     updateNote(editedNote);
-    setModalOpen(false);
+    resetForm()
   };
 
   return (
-    <ReactModal isOpen={isOpen} onRequestClose={() => setModalOpen(false)}>
+    <ReactModal 
+      style={{
+        overlay: {
+          backgroundColor: 'rgba(0, 0, 0, 0.5)', 
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        },
+        content: {
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          maxWidth: '400px',
+          maxHeight: '55vh',
+          margin: '0 auto',
+        },
+      }}
+      isOpen={isOpen} onRequestClose={resetForm}>
         {note && (
-        <div>
+        <div className="flex flex-col items-center">
+          <h2 className="text-xl font-bold mb-4">Update Note</h2>
           <input
+            className='updateTextModal shadow appearance-none border rounded py-2 px-3 text-gray-700 mb-2 w-64'
             type="text"
             name="title"
             value={editedNote.title}
             onChange={handleInputChange}
           />
-          <input
-            type="text"
+          <textarea
+            className='updateTextModal shadow appearance-none border rounded py-2 px-3 text-gray-700 mb-2 w-64 h-40 resize-none'
             name="description"
             value={editedNote.description}
             onChange={handleInputChange}
           />
-          <button onClick={handleNoteUpdate}>Guardar cambios</button>
+          <button
+            className={`${
+              hasChanges ? "bg-blue-500 hover:bg-blue-700" : "bg-gray-500"
+            } text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2`}
+            onClick={handleNoteUpdate}
+            disabled={!hasChanges}
+          >
+            Guardar cambios
+          </button>
         </div>
       )}
     </ReactModal>

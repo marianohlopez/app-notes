@@ -38,7 +38,7 @@ const NoteContainer = () => {
             <div className="flex items-center justify-between pt-3 border-t border-gray-300">
               <p className="text-sm text-gray-500">{note.date}</p>
               <FaTrashAlt className='text-gray-500 hover:text-black cursor-pointer' title='Delete'
-              onClick={() => deleteNote(note._id)} />
+              onClick={(e) => (e.stopPropagation(), deleteNote(note._id))} />
             </div>
           </div>
         </div>
@@ -47,7 +47,6 @@ const NoteContainer = () => {
       {selectedNote &&
         <UpdateModal note={selectedNote} isOpen={modalOpen} setModalOpen={setModalOpen} />
       }
-      
     </div>
   );
 };
