@@ -4,7 +4,6 @@ import { Context } from '../../context/context';
 import axios from 'axios';
 import configParams from '../../config/config';
 import moment from 'moment';
-import './update-modal.css';
 
 const UpdateModal = ({ note, isOpen, setModalOpen }) => {
   const [editedNote, setEditedNote] = useState(note);
@@ -76,14 +75,14 @@ const UpdateModal = ({ note, isOpen, setModalOpen }) => {
         <div className="flex flex-col items-center">
           <h2 className="text-xl font-bold mb-4">Update Note</h2>
           <input
-            className='updateTextModal shadow appearance-none border rounded py-2 px-3 text-gray-700 mb-2 w-64'
+            className='shadow appearance-none border rounded py-2 px-3 text-gray-700 mb-2 sm:w-64 w-60'
             type="text"
             name="title"
             value={editedNote.title}
             onChange={handleInputChange}
           />
           <textarea
-            className='updateTextModal shadow appearance-none border rounded py-2 px-3 text-gray-700 mb-2 w-64 h-40 resize-none'
+            className='shadow appearance-none border rounded py-2 px-3 text-gray-700 mb-2 sm:w-64 w-60 h-40 resize-none'
             name="description"
             value={editedNote.description}
             onChange={handleInputChange}

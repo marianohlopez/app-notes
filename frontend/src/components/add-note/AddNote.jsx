@@ -1,8 +1,8 @@
 import { useState} from 'react';
-import ReactModal from 'react-modal';
 import axios from 'axios';
 import moment from 'moment';
 import configParams from '../../config/config';
+import AddModal from '../add-modal/AddModal';
 
 const AddNote = ({fetchNotes}) => {
 
@@ -42,57 +42,9 @@ const AddNote = ({fetchNotes}) => {
         </div>
         <p className="mt-2 text-center text-blue-500">Add new note</p>
       </div>
-      <ReactModal
-        style={{
-            overlay: {
-              backgroundColor: 'rgba(0, 0, 0, 0.5)', 
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            },
-            content: {
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              maxWidth: '400px',
-              maxHeight: '55vh',
-              margin: '0 auto',
-            },
-          }}
-        isOpen={modalIsOpen}               
-        onRequestClose={() => setModalIsOpen(false)}
-        >
-        <form onSubmit={handleNoteSubmit} className="flex flex-col items-center">
-            <h2 className="text-xl font-bold mb-4">Add New Note</h2>
-            <input
-            className="shadow appearance-none border rounded py-2 px-3 text-gray-700 mb-2 w-64"
-            type="text"
-            placeholder="Title"
-            value={noteTitle}
-            onChange={(e) => setNoteTitle(e.target.value)}
-            />
-            <textarea
-            className="shadow appearance-none border rounded py-2 px-3 text-gray-700 mb-2 w-64 h-40 resize-none"
-            placeholder="Description"
-            value={noteDescription}
-            onChange={(e) => setNoteDescription(e.target.value)}
-            />
-            <div className="flex justify-center">
-            <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
-                type="submit"
-            >
-                Submit
-            </button>
-            <button
-                className="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                onClick={() => setModalIsOpen(false)}
-            >
-                Cancel
-            </button>
-            </div>
-        </form>
-      </ReactModal>
+      <AddModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} handleNoteSubmit={handleNoteSubmit} 
+      noteTitle={noteTitle} setNoteTitle={setNoteTitle} noteDescription={noteDescription} 
+      setNoteDescription={setNoteDescription} />
     </>
   )
 }

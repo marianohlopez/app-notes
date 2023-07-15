@@ -20,14 +20,13 @@ const NoteContainer = () => {
   };
 
   return (
-    <div className="container mx-auto py-4">
-      <h2 className="text-2xl font-bold mb-4">Notes</h2>
+    <>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <AddNote fetchNotes={fetchNotes} />
         {notes.map((note) => (
         <div
           key={note.id}
-          className="bg-white shadow rounded-lg p-4 h-56 w-3/4 sm:w-full mx-auto"
+          className="bg-white shadow rounded-lg cursor-pointer p-4 h-56 w-3/4 sm:w-full mx-auto"
           onClick={() => {handleNoteClick(note)}}
         >
           <div className="flex flex-col justify-between h-full">
@@ -47,7 +46,7 @@ const NoteContainer = () => {
       {selectedNote &&
         <UpdateModal note={selectedNote} isOpen={modalOpen} setModalOpen={setModalOpen} />
       }
-    </div>
+    </>
   );
 };
 

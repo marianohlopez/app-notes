@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import configParams from '../../config/config.js';
@@ -7,7 +7,7 @@ import { Context } from "../../context/context.jsx";
 
 const Login = () => {
 
-  const { setIsAuthenticated } = useContext(Context)
+  const { isAuthenticated, setIsAuthenticated } = useContext(Context)
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -29,6 +29,13 @@ const Login = () => {
       alert("Usuario inexistente")
     }
   };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/dashboard');
+    }
+  }, [isAuthenticated]);
+
   return (
     <div className="flex justify-center items-center h-screen">
       <form className="bg-white sm:w-96 shadow-md rounded px-8 pt-6 pb-8" onSubmit={handleSubmit}>
