@@ -1,7 +1,7 @@
 import ReactModal from 'react-modal';
 
-const AddModal = ({modalIsOpen, setModalIsOpen, handleNoteSubmit, noteTitle, setNoteTitle, 
-  noteDescription, setNoteDescription}) => {
+const AddModal = ({ modalIsOpen, setModalIsOpen, handleNoteSubmit, noteTitle, setNoteTitle, 
+  noteDescription, setNoteDescription }) => {
   return (
     <ReactModal
       style={{

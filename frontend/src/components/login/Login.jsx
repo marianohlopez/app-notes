@@ -22,6 +22,7 @@ const Login = () => {
       if(response.status === 200){
         alert("Login exitoso!");
         setIsAuthenticated(true);
+        localStorage.setItem('isAuthenticated', true); 
         navigate('dashboard');
       }
     } catch (error) {

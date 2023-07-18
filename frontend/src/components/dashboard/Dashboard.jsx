@@ -11,11 +11,11 @@ const Dashboard = () => {
 
   if (!isAuthenticated) {
     return <Navigate to="/" replace />;
-  };
+  }
 
   return (
     <div className="container flex flex-col mx-auto py-4">
-      <h2 className="text-2xl font-bold mb-4">Notes</h2>
+      <h2 className="text-2xl w-3/4 sm:w-full font-bold mb-4 mx-auto">Notes</h2>
       <SearchBar />
       <NoteContainer />
     </div>

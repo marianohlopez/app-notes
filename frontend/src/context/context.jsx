@@ -8,6 +8,7 @@ export const Provider = ({ children }) => {
   
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [notes, setNotes] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
 
   const dateConverter = (date) => {
     const parts = date.split(/[/, :]/);
@@ -49,7 +50,15 @@ export const Provider = ({ children }) => {
   }
 
   return (
-    <Context.Provider value={{ isAuthenticated, setIsAuthenticated, fetchNotes, deleteNote, notes}}>
+    <Context.Provider value={{ 
+      isAuthenticated, 
+      setIsAuthenticated, 
+      fetchNotes, 
+      deleteNote, 
+      notes, 
+      searchValue, 
+      setSearchValue
+      }}>
       {children}
     </Context.Provider>
   );

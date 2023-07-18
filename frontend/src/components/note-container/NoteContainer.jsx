@@ -3,6 +3,7 @@ import { FaTrashAlt } from 'react-icons/fa';
 import AddNote from '../add-note/AddNote';
 import { Context } from '../../context/context';
 import UpdateModal from '../update-modal/UpdateModal';
+import RenderNotes from '../render-notes/RenderNotes';
 
 const NoteContainer = () => {
 
@@ -23,7 +24,8 @@ const NoteContainer = () => {
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <AddNote fetchNotes={fetchNotes} />
-        {notes.map((note) => (
+        <RenderNotes handleNoteClick={handleNoteClick}/>
+        {/* {notes.map((note) => (
         <div
           key={note.id}
           className="bg-white shadow rounded-lg cursor-pointer p-4 h-56 w-3/4 sm:w-full mx-auto"
@@ -41,7 +43,7 @@ const NoteContainer = () => {
             </div>
           </div>
         </div>
-        ))}
+        ))} */}
       </div>
       {selectedNote &&
         <UpdateModal note={selectedNote} isOpen={modalOpen} setModalOpen={setModalOpen} />
