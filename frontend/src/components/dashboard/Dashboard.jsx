@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { Context } from "../../context/context";
 import { Navigate } from 'react-router-dom';
 import SearchBar from "../search-bar/SearchBar";
+import Logout from "../logout/Logout";
 
 
 const Dashboard = () => {
@@ -15,7 +16,10 @@ const Dashboard = () => {
 
   return (
     <div className="container flex flex-col mx-auto py-4">
-      <h2 className="text-2xl w-3/4 sm:w-full font-bold mb-4 mx-auto">Notes</h2>
+      <div className="flex items-center justify-between text-2xl w-3/4 sm:w-full font-bold mb-4 mx-auto">
+        <h2>Notes</h2>
+        <Logout />
+      </div>
       <SearchBar />
       <NoteContainer />
     </div>

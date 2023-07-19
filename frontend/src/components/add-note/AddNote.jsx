@@ -24,7 +24,6 @@ const AddNote = ({fetchNotes}) => {
         setNoteTitle('');
         setNoteDescription('');
         setModalIsOpen(false);
-        alert('Note created successfully');
         fetchNotes()
       } catch (error) {
         console.error(error);

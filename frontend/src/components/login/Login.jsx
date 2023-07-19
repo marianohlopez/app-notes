@@ -7,7 +7,7 @@ import { Context } from "../../context/context.jsx";
 
 const Login = () => {
 
-  const { isAuthenticated, setIsAuthenticated } = useContext(Context)
+  const { isAuthenticated, setIsAuthenticated, showAlert } = useContext(Context)
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -20,14 +20,13 @@ const Login = () => {
     try {
       const response = await axios.post(`${configParams.API_URL}/login`, userData, {withCredentials: true});
       if(response.status === 200){
-        alert("Login exitoso!");
         setIsAuthenticated(true);
         localStorage.setItem('isAuthenticated', true); 
         navigate('dashboard');
       }
     } catch (error) {
       console.error(error);
-      alert("Usuario inexistente")
+      showAlert("Verifique su nombre de usuario y contraseña")
     }
   };
 

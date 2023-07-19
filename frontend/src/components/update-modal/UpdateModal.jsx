@@ -26,7 +26,6 @@ const UpdateModal = ({ note, isOpen, setModalOpen }) => {
       const response = await axios.post(`${configParams.API_URL}/update-note/${updatedNote._id}`, 
       noteData, {withCredentials: true});
       console.log(response.data);
-      alert("Note updated succesfully")
       fetchNotes()
     }
     catch(err) {

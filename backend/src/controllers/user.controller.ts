@@ -23,8 +23,12 @@ const getLogin = (req: Request, res: Response) => {
 
 const logout = (req: any, res: Response) => {
     try {
-      req.logout(); 
-      return res.status(200).json({ message: "Logged out successfully" });
+      req.logout((err:any) => {
+				if(err){
+					console.error(`Error logging out: ${err}`);
+				}
+				return res.status(200).json({ message: "Logged out successfully" });
+			}); 
     } catch (err) {
       console.error(`Error logging out: ${err}`);
       return res.status(500).json({ message: "Internal server error" });

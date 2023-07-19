@@ -1,5 +1,6 @@
 import { createContext, useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import configParams from '../config/config';
 
 export const Context = createContext();
@@ -39,14 +40,45 @@ export const Provider = ({ children }) => {
 
   const deleteNote = async (id) => {
     try {
-      const response = await axios.delete(`${configParams.API_URL}/delete-note/${id}`, { withCredentials: true })
-      console.log(response.data);
-      fetchNotes();
-      alert("Nota eliminada correctamente")
+      const result = await Swal.fire({
+        title: '¿Está seguro que desea eliminar?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí',
+        cancelButtonText: 'No',
+        customClass: {
+          popup: 'sm:max-w-sm',
+          title: 'text-lg',
+          content: 'text-sm',
+          cancelButton: 'py-2 px-4 text-sm',
+          confirmButton: 'py-2 px-4 text-sm',
+        },
+      });
+      if (result.isConfirmed) {
+        const response = await axios.delete(`${configParams.API_URL}/delete-note/${id}`, { withCredentials: true });
+        console.log(response.data);
+        fetchNotes();
+        console.log('Elemento eliminado');
+      }
     }
     catch(err) {
       console.log(`Error deleting the selected note: ${err}`);
     }
+  }
+
+  const showAlert = (text) => {
+    Swal.fire({
+      text,
+      icon: 'warning',
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: true,
+      customClass: {
+        popup: 'sm:max-w-sm',
+        title: 'text-lg',
+        content: 'text-sm',
+      },
+    });
   }
 
   return (
@@ -57,7 +89,8 @@ export const Provider = ({ children }) => {
       deleteNote, 
       notes, 
       searchValue, 
-      setSearchValue
+      setSearchValue,
+      showAlert,
       }}>
       {children}
     </Context.Provider>

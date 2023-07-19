@@ -1,7 +1,8 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import configParams from '../../config/config';
 import axios from 'axios';
+import { Context } from '../../context/context';
 
 const RegistrationForm = () => {
 
@@ -11,6 +12,10 @@ const RegistrationForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const {showAlert} = useContext(Context);
+
+  const navigate = useNavigate()
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userData = { username, firstname, lastname, email, password };
@@ -18,12 +23,12 @@ const RegistrationForm = () => {
     try {
       const response = await axios.post(`${configParams.API_URL}/register`, userData, {withCredentials: true});
       if(response.status === 200){
-        alert("Registro exitoso!")
+        navigate('/');
       }
       console.log(response.data); 
     } catch (error) {
       console.error(error);
-      alert("El usuario ya existe")
+      showAlert("El usuario ya existe")
     }
   };
 
