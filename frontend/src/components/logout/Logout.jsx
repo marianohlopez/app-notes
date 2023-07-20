@@ -31,6 +31,7 @@ const Logout = () => {
       if (result.isConfirmed) {
         setIsAuthenticated(false)
         const response = await axios.get(`${configParams.API_URL}/logout`, {withCredentials: true});
+        localStorage.removeItem('isAuthenticated');
         response.status === 200 && navigate('/');
       }
     }

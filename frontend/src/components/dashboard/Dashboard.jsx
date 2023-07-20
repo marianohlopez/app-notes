@@ -1,18 +1,25 @@
 import NoteContainer from "../note-container/NoteContainer";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Context } from "../../context/context";
 import { Navigate } from 'react-router-dom';
 import SearchBar from "../search-bar/SearchBar";
 import Logout from "../logout/Logout";
 
-
 const Dashboard = () => {
 
-  const { isAuthenticated } = useContext(Context);
+  const localStorageAuthenticated = localStorage.getItem('isAuthenticated');
 
-  if (!isAuthenticated) {
+  const { isAuthenticated, fetchNotes } = useContext(Context);
+  
+  if (!isAuthenticated && localStorageAuthenticated !== 'true') {
     return <Navigate to="/" replace />;
   }
+
+  useEffect(() => {
+    if (localStorageAuthenticated === 'true') {
+      fetchNotes();
+    }
+  }, []);
 
   return (
     <div className="container flex flex-col mx-auto py-4">
