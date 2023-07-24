@@ -33,6 +33,7 @@ app.use(
         cookie: {
             httpOnly:true,
             secure:true,
+            sameSite:'none'
         },
     })
 );
