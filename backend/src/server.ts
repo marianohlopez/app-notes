@@ -1,7 +1,7 @@
 import express from 'express';
 import { json, urlencoded } from 'body-parser';
 import mongoose from "mongoose";
-import {mongoURL, port} from './config/config';
+import {mongoURL, port, originURL} from './config/config';
 import session from "express-session";
 import passport from "passport";
 import UserMongoDao from './daos/user.dao';
@@ -14,7 +14,7 @@ const userMongo = UserMongoDao.getInstance();
 const app = express();
 
 app.use(cors({
-    origin: "http://127.0.0.1:5173",
+    origin: originURL,
     credentials: true
   }));
 

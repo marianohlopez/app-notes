@@ -1,12 +1,23 @@
-import { Response, Request } from "express"
+import { Response, Request } from "express";
 import NoteMongoDao from "../daos/note.dao";
-import { UserNotes }from "../models/note.model"
+import { UserNotes }from "../models/note.model";
 
 const noteMongo = NoteMongoDao.getInstance();
 
-const createNote = async (req:any, res:Response) => {
+interface User {
+    username?: string;
+    email?: string;
+    password?: string;
+    firstname?: string;
+    lastname?: string;
+}
+
+const createNote = async (req:Request, res:Response) => {
     try{
-        const { user } = req;   
+        const user: User | undefined = req.user;
+        if (!user) {
+            return res.status(401).json({ message: "Usuario no autenticado" });
+        }
         const userNotes = await noteMongo.getByFilter({username: user.username});
         const {title, description, date} = req.body;
         if (userNotes) {
@@ -21,9 +32,12 @@ const createNote = async (req:any, res:Response) => {
     }
 };
 
-const getNotes = async (req: any, res: Response) => {
+const getNotes = async (req: Request, res: Response) => {
     try {
-        const { user } = req;
+        const user: User | undefined = req.user;
+        if (!user) {
+            return res.status(401).json({ message: "Usuario no autenticado" });
+        }
         const data = await noteMongo.getAll();
         const response = data?.find( (el:UserNotes) => el.username === user?.username )
         res.json(response?.notes);
@@ -34,9 +48,12 @@ const getNotes = async (req: any, res: Response) => {
     }
 };
 
-const updateNote = async (req: any, res: Response) => {
+const updateNote = async (req: Request, res: Response) => {
     try {
-        const { user } = req;
+        const user: User | undefined = req.user;
+        if (!user) {
+            return res.status(401).json({ message: "Usuario no autenticado" });
+        }
         const { title, description, date } = req.body;
         const { id } = req.params;
         const userNotes = await noteMongo.getByFilter({username: user.username});
@@ -51,12 +68,17 @@ const updateNote = async (req: any, res: Response) => {
     }
 };
 
-const deleteNote = async (req: any, res: Response) => {
+const deleteNote = async (req: Request, res: Response) => {
     try {
-        const { user } = req;
+        const user: User | undefined = req.user;
+        if (!user) {
+            return res.status(401).json({ message: "Usuario no autenticado" });
+        }
+        if (user.username) {
         const { id } = req.params;
         await noteMongo.deleteNote(user.username, id)
         return res.status(200).json({ message: "Note deleted successfully" });
+        }
     }
     catch(err){
         console.error(`Error deleting notes: ${err}`);

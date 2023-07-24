@@ -4,8 +4,6 @@ import { User } from "../models/user.model";
 const getLogin = (req: Request, res: Response) => {
 
     try {
-        console.log(req.user);
-        
         if (req.isAuthenticated()) {
             const user = req.user as User;  
             return res.json({
