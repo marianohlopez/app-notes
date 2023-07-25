@@ -12,7 +12,7 @@ const RegistrationForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const {showAlert} = useContext(Context);
+  const {showAlert, showAlertSuccess} = useContext(Context);
 
   const navigate = useNavigate()
 
@@ -23,6 +23,7 @@ const RegistrationForm = () => {
     try {
       const response = await axios.post(`${configParams.API_URL}/register`, userData, {withCredentials: true});
       if(response.status === 200){
+        showAlertSuccess("Registro exitoso! Revisá tu email")
         navigate('/');
       }
       console.log(response.data); 

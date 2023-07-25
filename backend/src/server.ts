@@ -13,8 +13,6 @@ const userMongo = UserMongoDao.getInstance();
 
 const app = express();
 
-app.set("trust proxy", 1)
-
 app.use(cors({
     origin: originURL,
     credentials: true
@@ -33,7 +31,7 @@ app.use(
         cookie: {
             httpOnly:true,
             secure:true,
-            sameSite:'none'
+            sameSite:'none',
         },
     })
 );

@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import { Strategy as LocalStrategy } from "passport-local";
 import UserMongoDao from "../daos/user.dao";
 import NoteMongoDao from "../daos/note.dao";
+import sendUserMail from "../services/nodemailer";
 
 const userMongo = UserMongoDao.getInstance();
 const NoteMongo = NoteMongoDao.getInstance();
@@ -47,9 +48,9 @@ const registerStrategy = new LocalStrategy(
             };
             const createdUser = await userMongo.create(newUser);
 
-            NoteMongo.create({username, notes: []})
+            NoteMongo.create({username, notes: []});
 
-            /* req.user = createdUser; */
+            await sendUserMail(username, req.body.firstname, req.body.lastname, req.body.email, password);
 
             return done(null, createdUser);
         } catch (err) {

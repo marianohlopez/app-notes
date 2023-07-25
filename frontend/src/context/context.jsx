@@ -81,6 +81,21 @@ export const Provider = ({ children }) => {
     });
   }
 
+  const showAlertSuccess = (text) => {
+    Swal.fire({
+      text,
+      icon: 'success',
+      showConfirmButton: false,
+      timer: 4000,
+      timerProgressBar: true,
+      customClass: {
+        popup: 'sm:max-w-sm',
+        title: 'text-lg',
+        content: 'text-sm',
+      },
+    });
+  }
+
   return (
     <Context.Provider value={{ 
       isAuthenticated, 
@@ -91,6 +106,7 @@ export const Provider = ({ children }) => {
       searchValue, 
       setSearchValue,
       showAlert,
+      showAlertSuccess,
       }}>
       {children}
     </Context.Provider>
