@@ -1,8 +1,8 @@
-# app-notes
+# App-Notes
 
 ## Introducción
-Aplicación Fullstack realizada con Typescript, Express y MongoDb para el backend, y React Vite para el frontend. Se trata de una app te permite registrarte y loguearte para tener tu propio espacio para guardar,
-editar y organizar tus notas de manera sencilla.
+
+Se trata de una aplicación Fullstack que utiliza Typescript, Express y MongoDB para el backend, y React Vite para el frontend. La aplicación ofrece a los usuarios la posibilidad de registrarse y acceder mediante un proceso de inicio de sesión. Una vez autenticado, cada usuario puede crear y gestionar sus propias notas de forma sencilla, permitiendo guardar, editar y organizar la información de manera eficiente.
 
 ### Tecnologías utilizadas:
 
