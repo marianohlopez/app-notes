@@ -1,13 +1,14 @@
 import express from 'express';
 import { json, urlencoded } from 'body-parser';
 import mongoose from "mongoose";
-import {mongoURL, port, originURL} from './config/config';
+import { mongoURL, port, originURL, secretMongo } from './config/config';
 import session from "express-session";
 import passport from "passport";
 import UserMongoDao from './daos/user.dao';
 import { passportStrategies } from './lib/passport.lib';
 import router from './routes/index';
 import cors from 'cors';
+import MongoStore from "connect-mongo";
 
 const userMongo = UserMongoDao.getInstance();
 
@@ -20,21 +21,25 @@ app.use(cors({
     credentials: true
   }));
 
-
 app.use(json());
 
 app.use(urlencoded({ extended: true }));
 
 app.use(
     session({
-        secret: "secret-note",
+        secret: secretMongo,
         resave: false,
         saveUninitialized: false,
+        rolling: true,
         cookie: {
             httpOnly:true,
             secure:true,
             sameSite:'none',
         },
+        store: new MongoStore({
+            mongoUrl: mongoURL,
+            ttl: 24 * 60 * 60,
+        }),
     })
 );
 

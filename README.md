@@ -13,6 +13,7 @@ Se trata de una aplicación Fullstack que utiliza Typescript, Express y MongoDB 
 - Passport
 - Passport-Local
 - Mongoose
+- Connect-mongo
 - Bcrypt
 - Dotenv
 - Nodemailer
