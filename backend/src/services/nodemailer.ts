@@ -1,5 +1,5 @@
 import { createTransport, Transporter } from "nodemailer";
-import { mailAdmin, apiPassword } from "../config/config";
+import { mailAdmin, apiPassword, originURL } from "../config/config";
 
 const transporter: Transporter = createTransport({
   service: "gmail",
@@ -13,7 +13,7 @@ const transporter: Transporter = createTransport({
   },
 });
 
-const sendUserMail = async (
+export const sendUserMail = async (
   user: string,
   name: string,
   lastname: string,
@@ -48,4 +48,24 @@ const sendUserMail = async (
   }
 };
 
-export default sendUserMail
+export const sendPasswordMail = async (email: string, token: string): Promise<void> => {
+  try {
+    const mailOptions = {
+      from: mailAdmin,
+      to: email,
+      subject: "Nuevo registro",
+      html: 
+			`<p>Hola,</p>
+      <p>Has solicitado restablecer tu contraseña.</p>
+      <p>Para cambiar tu contraseña, haz clic en el siguiente enlace:</p>
+      <a href="${originURL}/${token}">Restablecer contraseña</a>
+      <p>Si no solicitaste restablecer tu contraseña, ignora este correo.</p>`,
+    };
+    const info = await transporter.sendMail(mailOptions);
+    console.log(info);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+

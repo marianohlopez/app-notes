@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import { Strategy as LocalStrategy } from "passport-local";
 import UserMongoDao from "../daos/user.dao";
 import NoteMongoDao from "../daos/note.dao";
-import sendUserMail from "../services/nodemailer";
+import { sendUserMail } from "../services/nodemailer";
 
 const userMongo = UserMongoDao.getInstance();
 const NoteMongo = NoteMongoDao.getInstance();

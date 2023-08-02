@@ -10,6 +10,7 @@ interface User {
     password?: string;
     firstname?: string;
     lastname?: string;
+    resetToken?: string;
 }
 
 const createNote = async (req:Request, res:Response) => {
