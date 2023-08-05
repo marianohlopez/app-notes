@@ -66,27 +66,12 @@ export const Provider = ({ children }) => {
     }
   }
 
-  const showAlert = (text) => {
+  const showAlert = (text, icon) => {
     Swal.fire({
       text,
-      icon: 'warning',
+      icon,
       showConfirmButton: false,
-      timer: 2000,
-      timerProgressBar: true,
-      customClass: {
-        popup: 'sm:max-w-sm',
-        title: 'text-lg',
-        content: 'text-sm',
-      },
-    });
-  }
-
-  const showAlertSuccess = (text) => {
-    Swal.fire({
-      text,
-      icon: 'success',
-      showConfirmButton: false,
-      timer: 4000,
+      timer: 3000,
       timerProgressBar: true,
       customClass: {
         popup: 'sm:max-w-sm',
@@ -106,7 +91,6 @@ export const Provider = ({ children }) => {
       searchValue, 
       setSearchValue,
       showAlert,
-      showAlertSuccess,
       }}>
       {children}
     </Context.Provider>

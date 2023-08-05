@@ -58,8 +58,8 @@ export const sendPasswordMail = async (email: string, token: string): Promise<vo
 			`<p>Hola,</p>
       <p>Has solicitado restablecer tu contraseña.</p>
       <p>Para cambiar tu contraseña, haz clic en el siguiente enlace:</p>
-      <a href="${originURL}/${token}">Restablecer contraseña</a>
-      <p>Si no solicitaste restablecer tu contraseña, ignora este correo.</p>`,
+      <a href="${originURL}/reset-password/${token}">Restablecer contraseña</a>
+      <p>Este link expirará dentro de una hora, si no solicitaste restablecer tu contraseña, ignora este correo.</p>`,
     };
     const info = await transporter.sendMail(mailOptions);
     console.log(info);

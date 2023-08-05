@@ -41,7 +41,7 @@ const Logout = () => {
   };
   return (
     <div onClick={handleLogOut}>
-      <AiOutlineLogout title='Logout' className='cursor-pointer' />
+      <AiOutlineLogout title='Cerrar sesión' className='cursor-pointer' />
     </div>
   )
 }

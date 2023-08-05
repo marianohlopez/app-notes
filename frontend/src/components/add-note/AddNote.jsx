@@ -39,7 +39,7 @@ const AddNote = ({fetchNotes}) => {
         onClick={() => setModalIsOpen(true)}>
             <button>+</button>
         </div>
-        <p className="mt-2 text-center text-blue-500">Add new note</p>
+        <p className="mt-2 text-center text-blue-500">Agregar nota</p>
       </div>
       <AddModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} handleNoteSubmit={handleNoteSubmit} 
       noteTitle={noteTitle} setNoteTitle={setNoteTitle} noteDescription={noteDescription} 

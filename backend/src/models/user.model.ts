@@ -7,6 +7,7 @@ interface User extends Document {
     firstname?: string;
     lastname?: string;
     resetToken?: string;
+    resetTokenExpiry?: Date;
   }
   
 const userSchema: Schema<User> = new Schema<User>({
@@ -16,6 +17,7 @@ const userSchema: Schema<User> = new Schema<User>({
     firstname: { type: String },
     lastname: { type: String },
     resetToken: {type: String},
+    resetTokenExpiry: {type: Date},
 });
   
 

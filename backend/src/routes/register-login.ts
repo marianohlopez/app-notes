@@ -21,4 +21,6 @@ router.get("/logout", userController.logout);
 
 router.post("/forgot-password", userController.resetToken);
 
+router.post("/reset-password", userController.resetPassword);
+
 export const registerLoginRouter = router;

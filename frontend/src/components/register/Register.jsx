@@ -12,9 +12,9 @@ const RegistrationForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const {showAlert, showAlertSuccess} = useContext(Context);
+  const {showAlert} = useContext(Context);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,13 +23,13 @@ const RegistrationForm = () => {
     try {
       const response = await axios.post(`${configParams.API_URL}/register`, userData, {withCredentials: true});
       if(response.status === 200){
-        showAlertSuccess("Registro exitoso! Revisá tu email")
+        showAlert("Registro exitoso! Revisá tu email", "success")
         navigate('/');
       }
       console.log(response.data); 
     } catch (error) {
       console.error(error);
-      showAlert("El usuario ya existe")
+      showAlert("El usuario ya existe", "warning")
     }
   };
 
@@ -41,7 +41,7 @@ const RegistrationForm = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="username"
             type="username"
-            placeholder="Username"
+            placeholder="Nombre de usuario"
             name="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -54,7 +54,7 @@ const RegistrationForm = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="firstname"
             type="text"
-            placeholder="Firstname"
+            placeholder="Nombre"
             name="firstname"
             value={firstname}
             onChange={(e) => setFirstname(e.target.value)}
@@ -67,7 +67,7 @@ const RegistrationForm = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="lastname"
             type="text"
-            placeholder="Lastname"
+            placeholder="Apellido"
             name="lastname"
             value={lastname}
             onChange={(e) => setLastname(e.target.value)}
@@ -91,7 +91,7 @@ const RegistrationForm = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="password"
             type="password"
-            placeholder="Password"
+            placeholder="Contraseña"
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -103,7 +103,7 @@ const RegistrationForm = () => {
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
-            Register
+            Registrar
           </button>
           <Link to="/" 
             className="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">

@@ -7,7 +7,7 @@ import { sendUserMail } from "../services/nodemailer";
 const userMongo = UserMongoDao.getInstance();
 const NoteMongo = NoteMongoDao.getInstance();
 
-const hashPassword = (password:string) => {
+export const hashPassword = (password:string) => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 };
 

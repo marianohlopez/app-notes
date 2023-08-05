@@ -72,7 +72,7 @@ const UpdateModal = ({ note, isOpen, setModalOpen }) => {
       isOpen={isOpen} onRequestClose={resetForm}>
         {note && (
         <div className="flex flex-col items-center">
-          <h2 className="text-xl font-bold mb-4">Update Note</h2>
+          <h2 className="text-xl font-bold mb-4">Modificar nota</h2>
           <input
             className='shadow appearance-none border rounded py-2 px-3 text-gray-700 mb-2 sm:w-64 w-60'
             type="text"

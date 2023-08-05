@@ -4,6 +4,7 @@ import axios from "axios";
 import configParams from '../../config/config.js';
 import { useContext } from "react";
 import { Context } from "../../context/context.jsx";
+import PasswordModal from "../reset-password/PasswordModal.jsx";
 
 const Login = () => {
 
@@ -11,8 +12,17 @@ const Login = () => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const navigate = useNavigate()
+
+  const handleForgotPassword = async () => {
+    setIsModalOpen(true); // Abre el modal cuando se hace clic en "Olvidé mi contraseña"
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false); // Cierra el modal
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +36,7 @@ const Login = () => {
       }
     } catch (error) {
       console.error(error);
-      showAlert("Verifique su nombre de usuario y contraseña")
+      showAlert("Verifique su nombre de usuario y contraseña", "warning")
     }
   };
 
@@ -44,7 +54,7 @@ const Login = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="username"
             type="username"
-            placeholder="Username"
+            placeholder="Nombre de usuario"
             name="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -56,7 +66,7 @@ const Login = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="password"
             type="password"
-            placeholder="Password"
+            placeholder="Contraseña"
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -75,7 +85,16 @@ const Login = () => {
             Signup
           </Link>
         </div>
+        <div className="flex items-center justify-center mt-2">
+          <button
+            className="text-blue-500 hover:underline focus:outline-none"
+            onClick={handleForgotPassword}
+          >
+            Olvidaste tu contraseña?
+          </button>
+        </div>
       </form>
+      <PasswordModal isModalOpen={isModalOpen} handleCloseModal={handleCloseModal}/>
     </div>
   )
 }
