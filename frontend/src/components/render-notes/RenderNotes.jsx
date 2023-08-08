@@ -14,7 +14,7 @@ const RenderNotes = ({ handleNoteClick }) => {
 		return notes.map((note) => (
 			<div
 				key={note._id}
-				className="bg-white shadow rounded-lg cursor-pointer p-4 h-56 w-3/4 sm:w-full mx-auto"
+				className={`${note.color} shadow rounded-lg cursor-pointer p-4 h-56 w-3/4 sm:w-full mx-auto`}
 				onClick={() => {handleNoteClick(note)}}
 			>
 				<div className="flex flex-col justify-between h-full">

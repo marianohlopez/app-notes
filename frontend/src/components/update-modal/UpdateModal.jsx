@@ -8,7 +8,7 @@ import moment from 'moment';
 const UpdateModal = ({ note, isOpen, setModalOpen }) => {
   const [editedNote, setEditedNote] = useState(note);
   const [hasChanges, setHasChanges] = useState(false);
-  const {fetchNotes} = useContext(Context);
+  const {fetchNotes, noteColor, setNoteColor} = useContext(Context);
 
   useEffect(() => {
     if (note) {
@@ -20,6 +20,7 @@ const UpdateModal = ({ note, isOpen, setModalOpen }) => {
     const noteData = {
       title: updatedNote.title,
       description: updatedNote.description,
+      color: noteColor,
       date: moment().format('DD/MM/YYYY, h:mm:ss a'),
     }
     try {
@@ -65,7 +66,7 @@ const UpdateModal = ({ note, isOpen, setModalOpen }) => {
           flexDirection: 'column',
           alignItems: 'center',
           maxWidth: '400px',
-          maxHeight: '55vh',
+          maxHeight: '60vh',
           margin: '0 auto',
         },
       }}
@@ -86,6 +87,22 @@ const UpdateModal = ({ note, isOpen, setModalOpen }) => {
             value={editedNote.description}
             onChange={handleInputChange}
           />
+          <select
+          className="shadow appearance-none border rounded py-2 px-3 text-gray-700 mb-2 sm:w-64 w-60"
+          value={noteColor}
+          onChange={(e) => {setNoteColor(e.target.value), setHasChanges(true)}}
+          style={{color: "gray"}}
+          >
+            <option value="" disabled>Seleccionar color</option>
+            <option value="bg-white">Blanco</option>
+            <option value="bg-red-600">Rojo</option>
+            <option value="bg-blue-700">Azul</option>
+            <option value="bg-green-500">Verde</option>
+            <option value="bg-yellow-500">Amarillo</option>
+            <option value="bg-purple-700">Violeta</option>
+            <option value="bg-pink-600">Rosa</option>
+            <option value="bg-orange-500">Naranja</option>
+          </select>
           <button
             className={`${
               hasChanges ? "bg-blue-500 hover:bg-blue-700" : "bg-gray-500"

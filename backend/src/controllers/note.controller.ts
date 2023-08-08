@@ -20,9 +20,9 @@ const createNote = async (req:Request, res:Response) => {
             return res.status(401).json({ message: "Usuario no autenticado" });
         }
         const userNotes = await noteMongo.getByFilter({username: user.username});
-        const {title, description, date} = req.body;
+        const {title, description, color, date} = req.body;
         if (userNotes) {
-            userNotes.notes?.push({title, description, date});
+            userNotes.notes?.push({title, description, color, date});
             await noteMongo.update({username:user.username}, { notes: userNotes.notes });
             return res.status(200).json({ message: "Note created successfully" });
         } 
@@ -55,11 +55,11 @@ const updateNote = async (req: Request, res: Response) => {
         if (!user) {
             return res.status(401).json({ message: "Usuario no autenticado" });
         }
-        const { title, description, date } = req.body;
+        const { title, description, color, date } = req.body;
         const { id } = req.params;
         const userNotes = await noteMongo.getByFilter({username: user.username});
         const newArrayNotes = userNotes?.notes?.filter((el:any) => el._id != id)      
-        newArrayNotes?.push({title, description, date})
+        newArrayNotes?.push({title, description, color, date})
         await noteMongo.update({username:user.username}, { notes: newArrayNotes });
         return res.status(200).json({ message: "Note updated successfully" });
     }

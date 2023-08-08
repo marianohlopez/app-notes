@@ -10,6 +10,7 @@ export const Provider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [notes, setNotes] = useState([]);
   const [searchValue, setSearchValue] = useState('');
+  const [noteColor, setNoteColor] = useState('');
 
   const dateConverter = (date) => {
     const parts = date.split(/[/, :]/);
@@ -91,6 +92,8 @@ export const Provider = ({ children }) => {
       searchValue, 
       setSearchValue,
       showAlert,
+      noteColor, 
+      setNoteColor,
       }}>
       {children}
     </Context.Provider>

@@ -1,20 +1,23 @@
-import { useState} from 'react';
+import { useState, useContext} from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import configParams from '../../config/config';
 import AddModal from '../add-modal/AddModal';
+import { Context } from '../../context/context';
 
 const AddNote = ({fetchNotes}) => {
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [noteTitle, setNoteTitle] = useState('');
   const [noteDescription, setNoteDescription] = useState('');
+  const {noteColor, setNoteColor} = useContext(Context);
 
   const handleNoteSubmit = async (e) => {
       e.preventDefault();
       const noteData = {
         title: noteTitle,
         description: noteDescription,
+        color: noteColor,
         date: moment().format('DD/MM/YYYY, h:mm:ss a'),
       };
     
@@ -43,7 +46,7 @@ const AddNote = ({fetchNotes}) => {
       </div>
       <AddModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} handleNoteSubmit={handleNoteSubmit} 
       noteTitle={noteTitle} setNoteTitle={setNoteTitle} noteDescription={noteDescription} 
-      setNoteDescription={setNoteDescription} />
+      setNoteDescription={setNoteDescription} noteColor={noteColor} setNoteColor={setNoteColor} />
     </>
   )
 }
