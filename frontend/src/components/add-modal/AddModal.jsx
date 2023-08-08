@@ -44,7 +44,7 @@ const AddModal = ({ modalIsOpen, setModalIsOpen, handleNoteSubmit, noteTitle, se
           onChange={(e) => setNoteColor(e.target.value)}
           style={{color: "gray"}}
           >
-            <option value="" disabled>Seleccionar color</option>
+            <option value="bg-white" disabled>Seleccionar color</option>
             <option value="bg-white">Blanco</option>
             <option value="bg-red-600">Rojo</option>
             <option value="bg-blue-700">Azul</option>
