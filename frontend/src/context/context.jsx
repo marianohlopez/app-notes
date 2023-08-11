@@ -80,7 +80,21 @@ export const Provider = ({ children }) => {
         content: 'text-sm',
       },
     });
-  }
+  };
+
+  const loadingAlert = () => Swal.fire({
+    title: 'Cargando...',
+    allowOutsideClick: false,
+    showConfirmButton: false,
+    customClass: {
+      popup: 'sm:max-w-sm',
+      title: 'text-lg',
+      content: 'text-sm',
+    },
+    onBeforeOpen: () => {
+      Swal.showLoading();
+    }
+  });
 
   return (
     <Context.Provider value={{ 
@@ -92,6 +106,7 @@ export const Provider = ({ children }) => {
       searchValue, 
       setSearchValue,
       showAlert,
+      loadingAlert,
       noteColor, 
       setNoteColor,
       }}>

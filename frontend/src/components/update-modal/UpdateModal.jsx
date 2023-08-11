@@ -89,12 +89,11 @@ const UpdateModal = ({ note, isOpen, setModalOpen }) => {
           />
           <select
           className="shadow appearance-none border rounded py-2 px-3 text-gray-700 mb-2 sm:w-64 w-60"
-          value={noteColor}
+          value={!noteColor? "bg-white": noteColor}
           onChange={(e) => {setNoteColor(e.target.value), setHasChanges(true)}}
           style={{color: "gray"}}
           >
-            <option value="bg-white" disabled>Seleccionar color</option>
-            <option value="bg-white">Blanco</option>
+            <option value="bg-white">Seleccionar color</option>
             <option value="bg-red-600">Rojo</option>
             <option value="bg-blue-700">Azul</option>
             <option value="bg-green-500">Verde</option>

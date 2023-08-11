@@ -8,7 +8,7 @@ import PasswordModal from "../reset-password/PasswordModal.jsx";
 
 const Login = () => {
 
-  const { isAuthenticated, setIsAuthenticated, showAlert } = useContext(Context)
+  const { isAuthenticated, setIsAuthenticated, showAlert, loadingAlert } = useContext(Context)
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -17,24 +17,27 @@ const Login = () => {
   const navigate = useNavigate()
 
   const handleForgotPassword = async () => {
-    setIsModalOpen(true); // Abre el modal cuando se hace clic en "Olvidé mi contraseña"
+    setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false); // Cierra el modal
+    setIsModalOpen(false);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userData = { username, password };
     try {
+      loadingAlert();
       const response = await axios.post(`${configParams.API_URL}/login`, userData, {withCredentials: true});
+      loadingAlert().close();
       if(response.status === 200){
         setIsAuthenticated(true);
         localStorage.setItem('isAuthenticated', true); 
         navigate('dashboard');
       }
     } catch (error) {
+      loadingAlert().close();
       console.error(error);
       showAlert("Verifique su nombre de usuario y contraseña", "warning")
     }

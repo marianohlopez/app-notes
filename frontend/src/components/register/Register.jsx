@@ -12,7 +12,7 @@ const RegistrationForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const {showAlert} = useContext(Context);
+  const {showAlert, loadingAlert} = useContext(Context);
 
   const navigate = useNavigate();
 
@@ -21,13 +21,16 @@ const RegistrationForm = () => {
     const userData = { username, firstname, lastname, email, password };
 
     try {
+      loadingAlert();
       const response = await axios.post(`${configParams.API_URL}/register`, userData, {withCredentials: true});
+      loadingAlert().close();
       if(response.status === 200){
         showAlert("Registro exitoso! Revisá tu email", "success")
         navigate('/');
       }
       console.log(response.data); 
     } catch (error) {
+      loadingAlert().close();
       console.error(error);
       showAlert("El usuario ya existe", "warning")
     }
