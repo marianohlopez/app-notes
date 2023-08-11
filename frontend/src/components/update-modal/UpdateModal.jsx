@@ -8,7 +8,7 @@ import moment from 'moment';
 const UpdateModal = ({ note, isOpen, setModalOpen }) => {
   const [editedNote, setEditedNote] = useState(note);
   const [hasChanges, setHasChanges] = useState(false);
-  const {fetchNotes, noteColor, setNoteColor} = useContext(Context);
+  const {fetchNotes} = useContext(Context);
 
   useEffect(() => {
     if (note) {
@@ -20,7 +20,7 @@ const UpdateModal = ({ note, isOpen, setModalOpen }) => {
     const noteData = {
       title: updatedNote.title,
       description: updatedNote.description,
-      color: noteColor,
+      color: updatedNote.color,
       date: moment().format('DD/MM/YYYY, h:mm:ss a'),
     }
     try {
@@ -89,8 +89,9 @@ const UpdateModal = ({ note, isOpen, setModalOpen }) => {
           />
           <select
           className="shadow appearance-none border rounded py-2 px-3 text-gray-700 mb-2 sm:w-64 w-60"
-          value={!noteColor? "bg-white": noteColor}
-          onChange={(e) => {setNoteColor(e.target.value), setHasChanges(true)}}
+          name='color'
+          value={editedNote.color}
+          onChange={handleInputChange}
           style={{color: "gray"}}
           >
             <option value="bg-white">Seleccionar color</option>

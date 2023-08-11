@@ -40,11 +40,11 @@ const AddModal = ({ modalIsOpen, setModalIsOpen, handleNoteSubmit, noteTitle, se
           />
           <select
           className="shadow appearance-none border rounded py-2 px-3 text-gray-700 mb-2 sm:w-64 w-60"
-          value={!noteColor? "bg-white": noteColor}
+          value={noteColor === '' && setNoteColor("bg-white")}
           onChange={(e) => setNoteColor(e.target.value)}
           style={{color: "gray"}}
           >
-            <option value="bg-white">Seleccionar color</option>
+            <option value="">Seleccionar color</option>
             <option value="bg-red-600">Rojo</option>
             <option value="bg-blue-700">Azul</option>
             <option value="bg-green-500">Verde</option>
